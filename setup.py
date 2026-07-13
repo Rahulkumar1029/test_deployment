@@ -7,4 +7,5 @@ setup(
     description='for test deployment only',
     author='rahul',
     license='',
+    install_requires=['pandas'],
 )

@@ -1,0 +1,4 @@
+[core]
+    remote = temp_remote
+['remote "temp_remote"']
+    url = C:\Users\rahul\AppData\Local\Temp
