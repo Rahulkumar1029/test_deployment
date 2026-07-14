@@ -4,8 +4,8 @@ __pycache__/
 
 # C extensions
 *.so
-models
-reports
+mlflow.db
+mlruns
 # Distribution / packaging
 .Python
 env/
@@ -77,7 +77,6 @@ target/
 .ipynb_checkpoints/
 
 # exclude data from source control by default
-/data/
 
 # Mac OS-specific storage files
 .DS_Store

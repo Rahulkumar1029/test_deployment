@@ -3,6 +3,11 @@ stages:
   data_preprocess:
     cmd: python src/data/data_preprocess.py
     deps:
+    - path: data/raw
+      hash: md5
+      md5: 2776a6dd18858bb2cff4ffe8d02ee234.dir
+      size: 582126
+      nfiles: 3
     - path: src/data/data_preprocess.py
       hash: md5
       md5: b00176f75e51423070bcf6c35fbe520b
@@ -10,6 +15,52 @@ stages:
     outs:
     - path: data/processed
       hash: md5
-      md5: 31d9c644ade24275e3352987a7aec795.dir
+      md5: dfe1fc882ff14e94118f5d223512fd31.dir
       size: 535365
       nfiles: 3
+  exp:
+    cmd: python src/models/exp.py
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: dfe1fc882ff14e94118f5d223512fd31.dir
+      size: 535365
+      nfiles: 3
+    - path: src/models/exp.py
+      hash: md5
+      md5: a9085fe134020372fba296ce7bc3dc92
+      size: 7742
+    params:
+      params.yaml:
+        experiment.name: xgboost_exp
+        experiment.run_name: baseline
+        xgboost.colsample_bytree: 0.5
+        xgboost.eval_metric: mlogloss
+        xgboost.gamma: 0
+        xgboost.learning_rate: 0.1
+        xgboost.max_depth: 7
+        xgboost.min_child_weight: 1
+        xgboost.n_estimators: 100
+        xgboost.num_class: 3
+        xgboost.objective: multi:softprob
+        xgboost.random_state: 42
+        xgboost.reg_alpha: 0
+        xgboost.reg_lambda: 1
+        xgboost.subsample: 0.8
+    outs:
+    - path: reports/classification_report.csv
+      hash: md5
+      md5: 7a6fd9468c75254748e044d0dd0c7001
+      size: 529
+    - path: reports/confusion_matrix.png
+      hash: md5
+      md5: 28891479b0364ab0c76943a761ef8bf7
+      size: 21742
+    - path: reports/feature_importance.png
+      hash: md5
+      md5: 113684f149415730615e852610f59d8d
+      size: 63023
+    - path: trained_model/xgboost_model.pkl
+      hash: md5
+      md5: e565b3540b1acd189cd7687c2f4fd14b
+      size: 1942364

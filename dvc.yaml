@@ -2,6 +2,44 @@ stages:
   data_preprocess:
     cmd: python src/data/data_preprocess.py
     deps:
-    - src/data/data_preprocess.py
+      - src/data/data_preprocess.py
+      - data/raw
     outs:
-    - data/processed
+      - data/processed
+  exp:
+    cmd: python src/models/exp.py
+    deps:
+      - src/models/exp.py
+      - data/processed
+    params:
+      - experiment.name
+      - experiment.run_name
+
+      - xgboost.objective
+      - xgboost.num_class
+      - xgboost.random_state
+
+      - xgboost.max_depth
+      - xgboost.learning_rate
+      - xgboost.n_estimators
+
+      - xgboost.subsample
+      - xgboost.colsample_bytree
+
+      - xgboost.min_child_weight
+      - xgboost.gamma
+
+      - xgboost.reg_alpha
+      - xgboost.reg_lambda
+
+      - xgboost.eval_metric
+
+    outs:
+      - trained_model/xgboost_model.pkl
+
+    metrics:
+      - reports/classification_report.csv
+
+    plots:
+      - reports/confusion_matrix.png
+      - reports/feature_importance.png
